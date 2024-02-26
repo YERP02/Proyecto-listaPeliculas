@@ -33,6 +33,7 @@ class CategoryService{
 
         return category
     }
+    
     async findByName(name: string){
         const category = await Categories.findOne({name}).catch((error) =>{
             console.log('Error while connecting to the DB', error)
