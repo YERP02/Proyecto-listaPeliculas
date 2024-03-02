@@ -7,6 +7,8 @@ import {
 } from './middlewares/error.handler'
 import routerApi from './routes'
 import { config } from './config/config'
+import passport from 'passport'
+import './utils/auth/index'
 
 const { mongoUri, port } = config
 
@@ -16,6 +18,7 @@ const connectDB = () => {
   mongoose.connect(mongoUri)
 }
 
+app.use(passport.initialize())
 app.use(express.json())
 routerApi(app)
 
