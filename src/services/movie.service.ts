@@ -6,12 +6,11 @@ import { CATEGORY_REFERENCE } from '../models/category.model'
 
 class MovieService {
   async create(movie: Movie, categoryId: ObjectId) {
-    const newMovie = await Movies.create({
-      ...movie,
-      category: categoryId
-    }).catch((error) => {
+    const newMovie = await Movies.create(movie).catch((error) => {
       console.log('Could not save movie')
     })
+    console.log(movie)
+    console.log(newMovie)
 
     const existingMovie = await this.findById((newMovie as any)._id)
 

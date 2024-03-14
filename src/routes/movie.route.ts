@@ -13,12 +13,9 @@ router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
   async (req: jwtRequestType, res) => {
-    const {
-      category: { sub }
-    } = req
     //console.log(category)
     const movie: Movie = req.body
-    const newMovie = await service.create(movie, sub as unknown as ObjectId)
+    const newMovie = await service.create(movie, null as unknown as ObjectId)
 
     res.status(201).json(newMovie)
   }

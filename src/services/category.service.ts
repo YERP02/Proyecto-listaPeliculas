@@ -6,6 +6,7 @@ class CategoryService {
   async create(category: Category) {
     const newCategory = await Categories.create(category).catch((error) => {
       console.log('Could not save category')
+      console.log(error)
     })
     return newCategory
   }

@@ -18,4 +18,4 @@ const Categories = new Schema<Category, CategoryModel>({
   }
 })
 
-export default model('CATEGORY_ REFERENCE', Categories)
+export default model(CATEGORY_REFERENCE, Categories)
