@@ -1,5 +1,8 @@
 import { Schema, model } from 'mongoose'
 import { Movie, MoviesModel } from '../types/movie.type'
+import { CATEGORY_REFERENCE } from './category.model'
+
+export const MOVIES_REFERENCE = 'movies'
 
 const Movies = new Schema<Movie, MoviesModel>({
   title: {
@@ -18,6 +21,10 @@ const Movies = new Schema<Movie, MoviesModel>({
     type: String,
     required: true,
     trim: true
+  },
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: CATEGORY_REFERENCE
   },
   cast: {
     type: String,

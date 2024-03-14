@@ -1,5 +1,6 @@
 import type { Model } from 'mongoose'
 import type { Request } from 'express'
+import { Category } from './category.type'
 
 export type Movie = {
   id?: string
@@ -7,6 +8,7 @@ export type Movie = {
   duration: string
   director: string
   cast: string
+  category: Category
   description?: string
   createAt?: Date
   lastModified?: Date

@@ -4,6 +4,12 @@ import boom from '@hapi/boom'
 import bcrytp from 'bcrypt'
 
 class UserService {
+  getToClientUser(user: UserModel): Partial<User> {
+    //aquipodemos sobrescribir las propiedades que queremos excluir
+    //asignamos undifined
+    return { ...user, password: undefined }
+  }
+
   async create(user: User) {
     const hashedPassword = await bcrytp.hash(user.password, 10)
     const newUser = await Users.create({
@@ -21,6 +27,17 @@ class UserService {
     return newUserObject
     //delete (newUser as unknown as User).password
     //return newUser
+  }
+
+  async findAll(filters) {
+    const users = await Users.find({ ...filters }).catch((error) => {
+      console.log('Error while connecting to the DB ', error)
+    })
+    if (!Users) {
+      throw boom.notFound('There are users')
+    }
+
+    return Users
   }
 
   async findByEmail(email: string) {

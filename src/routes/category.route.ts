@@ -18,7 +18,20 @@ router.post(
   }
 )
 
-router.get(
+router.get('/', async (req: UserRequestType, res, next) => {
+  try {
+    const { user } = req
+    const filters = req.query
+    const categories = await service.findAll(filters)
+    console.log(categories)
+
+    res.status(200).json(categories)
+  } catch (error) {
+    next(error)
+  }
+})
+
+/*router.get(
   '/', //passport lo uso para tener que poner el token
   passport.authenticate('jwt', { session: false }),
   async (req: UserRequestType, res, next) => {
@@ -31,7 +44,7 @@ router.get(
       next(error)
     }
   }
-)
+)*/
 
 router.get(
   '/:id',
