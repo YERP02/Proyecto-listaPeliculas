@@ -38,14 +38,23 @@ router.get(
   }
 )
 
-router.get('/:id', async (req, res, next) => {
+router.get('/findSecondMovie', async (req, res, next) => {
+  try {
+    const movief = await service.findSecondMovie()
+    res.status(200).json(movief)
+  } catch (error) {
+    next(error)
+  }
+})
+
+/*router.get('/:id', async (req, res, next) => {
   try {
     const movie = await service.findById(req.params.id)
     res.status(200).json(movie)
   } catch (error) {
     next(error)
   }
-})
+})*/
 
 router.get('/', async (req, res, next) => {
   try {

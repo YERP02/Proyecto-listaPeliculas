@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongoose'
 import Movies from '../models/movie.model'
 import { Movie, MoviesModel } from '../types/movie.type'
-import boom from '@hapi/boom'
+import boom, { internal } from '@hapi/boom'
 import { CATEGORY_REFERENCE } from '../models/category.model'
 
 class MovieService {
@@ -28,6 +28,22 @@ class MovieService {
     }
 
     return movies
+  }
+
+  async findSecondMovie() {
+    const movies = await Movies.find()
+      .sort({ _id: 1 })
+      .limit(2)
+      .catch((error) => {
+        console.log('Error While Connecting to yhe BD', error)
+        throw boom.internal('internal server error')
+      })
+
+    if (!Movies || movies.length < 2) {
+      throw boom.notFound('There are not movies')
+    }
+
+    return movies[1]
   }
 
   async findById(id: string) {
